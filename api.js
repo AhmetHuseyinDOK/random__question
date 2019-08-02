@@ -1,7 +1,6 @@
 import Axios from "axios";
-
 const axios = new Axios.create({
-    baseURL: 'http://10.0.2.2:3000/',
+    baseURL: "https://random-question.herokuapp.com",
 });
 
 class Api {
