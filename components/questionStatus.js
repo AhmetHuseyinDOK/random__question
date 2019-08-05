@@ -2,7 +2,7 @@ import React from 'react';
 import {View,StyleSheet} from 'react-native';
 import Button from './button';
 import {connect} from 'react-redux';
-import {getQuestion} from '../redux/actionTypes';
+import {getRandomQuestion} from '../redux/actionTypes';
 function QuestionStatus(props){
     
     const onPress = () => {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
 
 const mapDispatchToProps = (dispatch) => ({
-    getQuestion: ()=>dispatch(getQuestion())
+    getQuestion: ()=>dispatch(getRandomQuestion())
 });
 
 export default connect(null,mapDispatchToProps)(QuestionStatus);

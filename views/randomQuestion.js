@@ -9,14 +9,15 @@ import {
 } from 'react-native';
 
 import Question from '../components/question';
+import QuestionStatus from '../components/questionStatus';
 import {connect} from 'react-redux';
-import { getQuestion } from '../redux/actionTypes';
+import { getRandomQuestion } from '../redux/actionTypes';
 class QuestionView extends React.Component{
-
+    static navigationOptions = {
+        title:"Challenge"
+    }
     componentDidMount = () =>{
-        let {navigation,getQuestion} = this.props;
-        let id = navigation.getParam('id');
-        getQuestion(id);
+        this.props.getQuestion();
     }
     
     render = () => {
@@ -26,25 +27,23 @@ class QuestionView extends React.Component{
             <StatusBar barStyle="dark-content" />
             <SafeAreaView style={styles.safeArea}>
                 <View style={styles.container}>
-                    {loading?(
-                        <Text>Yükleniyor...</Text>
-                    ):(
-                        <Question style={styles.question} question={question} answer={answer}/>
-                    )}
+                    <Question style={styles.question} question={question} answer={answer}/>
+                    <QuestionStatus/>
                 </View>
             </SafeAreaView>
         </Fragment>
         );
     }
+     
 }
 
 const mapStateToProps = (state) => ({
-    question: state.question,
-    loading: state.loading
+    question: state.randomQuestion,
+    loading: state.randomQuestionLoading
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getQuestion: (id) => dispatch(getQuestion(id))
+    getQuestion: () => dispatch(getRandomQuestion())
 })
  
 const styles = StyleSheet.create({
