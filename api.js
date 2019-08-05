@@ -1,6 +1,6 @@
 import Axios from "axios";
 const axios = new Axios.create({
-    baseURL: "http://10.0.2.2:3000" //"https://random-question.herokuapp.com",
+    baseURL: "https://random-question.herokuapp.com"//"http://10.0.2.2:3000" ,
 });
 
 class Api {
@@ -11,6 +11,10 @@ class Api {
 
     async getQuestion(id){
         return await axios.get('/question/'+id);
+    }
+
+    async getAllQuestions(){
+        return await axios.get('/question');
     }
 
 }

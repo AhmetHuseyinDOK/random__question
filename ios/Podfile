@@ -30,6 +30,8 @@ target 'random_question' do
 
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'random_questionTests' do
     inherit! :search_paths
     # Pods for testing

@@ -44,3 +44,26 @@ export function getRandomQuestionFetched(question){
         question:question
     }
 }
+
+export const GET_ALL_QUESTIONS ="GET_ALL_QUESTIONS";
+export const GET_ALL_QUESTIONS_STARTED = "GET_ALL_QUESTIONS_STARTED";
+export const GET_ALL_QUESTIONS_FETCHED = "GET_ALL_QUESTIONS_FETCHED";
+
+export function getAllQuestions(){
+    return {
+        type: GET_ALL_QUESTIONS
+    }
+}
+
+export function getAllQuestionsStarted(){
+    return {
+        type: GET_ALL_QUESTIONS_STARTED
+    }
+}
+
+export function getAllQuestionsFetched(questions){
+    return {
+        type: GET_ALL_QUESTIONS_FETCHED,
+        questions:questions
+    }
+}

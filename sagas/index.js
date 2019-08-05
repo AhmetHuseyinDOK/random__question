@@ -5,7 +5,10 @@ import {
     getQuestionFetched,
     GET_RANDOM_QUESTION,
     getRandomQuestionStarted,
-    getRandomQuestionFetched
+    getRandomQuestionFetched,
+    GET_ALL_QUESTIONS,
+    getAllQuestionsStarted,
+    getAllQuestionsFetched
 } from '../redux/actionTypes';
 
 import api from '../api';
@@ -36,10 +39,22 @@ export function* watchGetRandomQuestion(){
     yield takeLatest(GET_RANDOM_QUESTION,getRandomQuestion)
 } 
 
+export function* getAllQuestions(){
+    yield put(getAllQuestionsStarted());
+    var response = yield call(api.getAllQuestions);
+    yield  put(getAllQuestionsFetched(response.data));
+}
+
+
+export function* watchGetAllQuestions(){
+    yield takeLatest(GET_ALL_QUESTIONS,getAllQuestions)
+} 
+
 export default function* rootSaga() {
     yield all([
       hello(),
       watchGetQuestion(),
-      watchGetRandomQuestion()
+      watchGetRandomQuestion(),
+      watchGetAllQuestions(),
     ])
   }

@@ -2,8 +2,8 @@
 import React from 'react';
 import RandomQuestion from './views/randomQuestion';
 import Question from './views/question';
-
-import {createStackNavigator, createAppContainer, NavigationActions} from 'react-navigation';
+import NavigationService from './NavigationService';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 import OneSignal from 'react-native-onesignal';
 
 import {Provider} from 'react-redux';
@@ -11,6 +11,7 @@ import {createStore,applyMiddleware} from 'redux';
 import rootReducer from './redux/reducers/index';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas/index';
+import questionList from './views/questionList';
 const sagaMiddleware = createSagaMiddleware();
 const store  =  createStore(rootReducer,applyMiddleware(sagaMiddleware));
 
@@ -18,10 +19,12 @@ sagaMiddleware.run(rootSaga);
 const MainNavigator = createStackNavigator({
     Home: {screen: RandomQuestion},
     Question: {screen: Question},
+    QuestionList:{screen:questionList}
   },{
-    initialRouteName:"Home"
+    initialRouteName:"Home",
   });
-  
+
+
 const AppContainer  = createAppContainer(MainNavigator);
 
 class App extends React.Component{
@@ -38,13 +41,11 @@ class App extends React.Component{
     
       onOpened = (openResult)=> {
         let id = openResult.notification.payload.additionalData.id;
-        this.navigator.dispatch(
-            NavigationActions.navigate({
-                routeName:"Question",
-                params:{
+        NavigationService.navigate(
+                "Question",
+                {
                     id:id
                 }
-            })
         );
       }
 
@@ -53,7 +54,7 @@ class App extends React.Component{
             <Provider store={store}>
                 <AppContainer 
                 ref={nav => {
-                    this.navigator = nav;
+                    NavigationService.setTopLevelNavigator(nav);
                 }}/>
             </Provider>
         );

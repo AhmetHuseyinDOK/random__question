@@ -12,10 +12,14 @@ import Question from '../components/question';
 import QuestionStatus from '../components/questionStatus';
 import {connect} from 'react-redux';
 import { getRandomQuestion } from '../redux/actionTypes';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import NavigationService from '../NavigationService';
 class QuestionView extends React.Component{
     static navigationOptions = {
-        title:"Challenge"
+        title:"Challenge",
+        headerRight: <Icon name="book" style={{padding:10}} size={20} onPress={()=>NavigationService.navigate('QuestionList')}/>
     }
+    
     componentDidMount = () =>{
         this.props.getQuestion();
     }
